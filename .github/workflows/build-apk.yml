@@ -9,9 +9,10 @@ on:
 
 jobs:
   build-apk:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -53,7 +54,6 @@ jobs:
           cmake \
           libffi-dev \
           libssl-dev \
-          automake \
           autoconf-archive
 
     - name: Cache buildozer dependencies
