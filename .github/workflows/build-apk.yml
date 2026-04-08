@@ -54,7 +54,8 @@ jobs:
           cmake \
           libffi-dev \
           libssl-dev \
-          autoconf-archive
+          autoconf-archive \
+          libunwind-dev
 
     - name: Cache buildozer dependencies
       uses: actions/cache@v4
