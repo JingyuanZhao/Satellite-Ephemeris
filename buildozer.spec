@@ -16,6 +16,9 @@ android.ndk = 25b
 android.archs = arm64-v8a
 android.accept_sdk_license = True
 
+# 禁用某些 Python 模块以避免编译错误
+android.disable_modules = _lzma,_uuid,grp
+
 [buildozer]
 log_level = 2
 warn_on_root = 1
