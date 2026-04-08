@@ -221,10 +221,16 @@ class SatelliteTrackerApp(App):
 
         def fetch():
             try:
-                # 这里简化处理，实际应该调用CelesTrak或N2YO API
-                Clock.schedule_once(lambda dt: self._show_popup('提示', f'正在获取卫星 {sat_id} 的TLE数据...'), 0)
+                # 使用CelesTrak API获取TLE数据
+                url = f"https://celestrak.org/NORAD/elements/gp.php?CATNR={sat_id}&FORMAT=TLE"
+                response = requests.get(url, timeout=10)
+                if response.status_code == 200:
+                    tle_data = response.text.strip()
+                    Clock.schedule_once(lambda dt: self._show_popup('成功', f'获取到TLE数据:\n{tle_data[:100]}...'), 0)
+                else:
+                    Clock.schedule_once(lambda dt: self._show_popup('错误', '获取TLE数据失败'), 0)
             except Exception as e:
-                Clock.schedule_once(lambda dt: self._show_popup('错误', f'获取TLE数据失败: {str(e)}'), 0)
+                Clock.schedule_once(lambda dt: self._show_popup('错误', f'获取失败: {str(e)}'), 0)
 
         Thread(target=fetch).start()
 
